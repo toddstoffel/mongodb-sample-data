@@ -67,8 +67,12 @@ def download_file_from_google_drive(destination_path):
 
 def extract_bz2_file(file_path, target_path):
     os.makedirs(target_path, exist_ok=True)
+
+    def tar_filter(tarinfo):
+        return tarinfo
+
     with tarfile.open(file_path, "r:bz2") as file:
-        file.extractall(path=target_path)
+        file.extractall(path=target_path, filter=tar_filter)
 
 
 def create_indexes(collection):
